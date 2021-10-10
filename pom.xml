@@ -16,7 +16,9 @@
 
     <properties>
         <java.version>11</java.version>
-    </properties>
+  	<sonar.organization>datthinh1801</sonar.organization>
+  	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
 
     <dependencies>
         <dependency>
