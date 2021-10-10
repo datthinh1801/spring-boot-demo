@@ -4,8 +4,8 @@ COPY pom.xml ./
 COPY src ./
 RUN mvn -B -f ./pom.xml dependency:resolve
 
-COPY target/*.jar ./target/app.jar
 RUN ls -l /build/target/
+COPY target/*.jar ./target/app.jar
 
 
 FROM openjdk:11.0.12-jre-slim
