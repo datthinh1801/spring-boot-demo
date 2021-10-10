@@ -5,6 +5,7 @@ COPY src /build/src/
 
 RUN mvn clean package
 ARG JAR_FILE=target/*.jar
+RUN echo $JAR_FILE
 COPY $JAR_FILE /build/target/application.jar
 
 FROM opendjk:11.0.11-jre-slim
