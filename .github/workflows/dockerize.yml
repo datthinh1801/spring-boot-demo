@@ -28,5 +28,8 @@ jobs:
       - name: Build a docker image
         run: docker build -t spring-boot-demo .
       
-      - name: Test the container
-        run: docker ps -a
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the docker image
+        run: docker images | grep "spring-boot-demo"
