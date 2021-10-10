@@ -30,6 +30,7 @@ jobs:
           docker build -t spring-boot-demo .
           
   test:
+    needs: build
     runs-on: ubuntu-latest
     
     steps:
