@@ -3,6 +3,5 @@ WORKDIR /build/
 COPY pom.xml .
 RUN mvn -B -f ./pom.xml dependency:resolve
 
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} ./app.jar
+COPY target/*.jar ./app.jar
 CMD ["java","-jar","/build/app.jar"]
