@@ -29,4 +29,4 @@ jobs:
         run: docker build -t spring-boot-demo .
       
       - name: Check the docker image
-        run: docker images
+        run: docker images | grep "spring-boot-demo"
