@@ -4,6 +4,7 @@ COPY pom.xml /build/
 COPY src /build/src/
 
 RUN mvn clean package
+RUN ls target/
 COPY target/spring-boot-demo.jar target/application.jar
 
 FROM opendjk:11.0.11-jre-slim
