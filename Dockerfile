@@ -1,10 +1,10 @@
 FROM maven:3.8.3-jdk-11 AS build
 WORKDIR /build/
 COPY pom.xml ./
-COPY src ./
+COPY src ./src
 RUN mvn -B -f ./pom.xml dependency:resolve
 
-RUN ls -l /build/target/
+RUN ls -l /build/
 COPY target/*.jar ./target/app.jar
 
 
