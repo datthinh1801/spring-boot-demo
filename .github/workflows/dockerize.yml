@@ -32,7 +32,7 @@ jobs:
         run: docker images | grep "spring-boot-demo"
         
       - name: Run the container
-        run: docker run spring-boot-demo -d -rm -p 8080:8080
+        run: docker run -d -rm -p 8080:8080 spring-boot-demo
         
       - name: cUrl
         run: curl localhost:8080
