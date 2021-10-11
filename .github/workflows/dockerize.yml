@@ -35,4 +35,4 @@ jobs:
         run: docker run -d --rm -p 8080:8080 --name spring-boot spring-boot-demo
         
       - name: Test the running container
-        run: echo "$(docker inspect -f '{{json .NetworkSettings.IPAddress }}' spring-boot | cut -d "\"" -f 2):8080"
+        run: curl "$(docker inspect -f '{{json .NetworkSettings.IPAddress }}' spring-boot | cut -d "\"" -f 2):8080"
