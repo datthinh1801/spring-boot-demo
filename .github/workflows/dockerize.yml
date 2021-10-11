@@ -32,7 +32,7 @@ jobs:
         run: docker images | grep "spring-boot-demo"
         
       - name: Run the container
-        run: docker run -d --rm -p 8080:8080 spring-boot-demo
+        run: docker run -d --rm -p 8080:8080 --name spring-boot spring-boot-demo
         
       - name: Test the running container
-        run: docker inspect $(docker ps | grep "sprint-boot-demo" | cut -d " " -f 1)
+        run: docker inspect
