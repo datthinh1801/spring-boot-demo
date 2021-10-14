@@ -28,8 +28,11 @@ jobs:
       - name: Build a docker image
         run: docker build -t spring-boot-demo .
         
+      - name: Create a docker network
+        run: docker network create --subnet=172.18.0.0/16 zapscan
+        
       - name: Run the container
-        run: docker run -d --rm -p 8080:8080 --name spring-boot spring-boot-demo
+        run: docker run -d --rm --network zapscan --ip 172.18.0.100 -p 8080:8080 --name spring-boot spring-boot-demo
         
       - name: Wait for the container to completely start
         run: sleep 5m
@@ -37,8 +40,8 @@ jobs:
       - name: Test the running container
         run: curl http://localhost:8080/rest/demo
         
-      - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.6.1
-        with:
-          target: 'http://localhost:8080/rest/demo'     
+      - name: ZAP scan
+        run: |
+          docker pull owasp/zap2docker-stable
+          docker run --rm owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://172.18.0.100:8080/rest/demo
       
