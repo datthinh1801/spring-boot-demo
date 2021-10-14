@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build a Docker container and Perform Full Scan with ZAP
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Build a docker image
+        run: docker build -t spring-boot-demo .
+        
+      - name: Create a docker network
+        run: docker network create --subnet=172.18.0.0/16 zapscan
+        
+      - name: Run the container
+        run: docker run -d --rm --network zapscan --ip 172.18.0.100 -p 8080:8080 --name spring-boot spring-boot-demo
+        
+      - name: Wait for the container to completely start
+        run: sleep 5m
+        
+      - name: Test the running container
+        run: curl http://localhost:8080/rest/demo
+        
+      - name: ZAP scan
+        run: |
+          docker pull owasp/zap2docker-stable
+          docker run --rm owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo
