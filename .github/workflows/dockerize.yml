@@ -38,7 +38,7 @@ jobs:
 #         run: curl http://localhost:8080/rest/demo
       - name: Run a test container
         run: |
-          docker run -it -p 127.0.0.1:80:8888 -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf:v8.2.2
+          docker run -it -p 127.0.0.1:80:8888 -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 webgoat/goatandwolf:v8.2.2
       
       - name: Test the container
-        run: curl http://localhost
+        run: curl http://localhost:8080
