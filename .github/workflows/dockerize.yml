@@ -34,5 +34,8 @@ jobs:
       - name: Run the container
         run: docker run -d --rm -p 8080:8080 --name spring-boot spring-boot-demo
         
+      - name: Check container
+        run: docker ps | grep spring-boot
+        
       - name: Test the running container
         run: curl http://localhost:8080/rest/demo
