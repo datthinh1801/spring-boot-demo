@@ -25,14 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Build a docker image
-        run: docker build -t spring-boot-demo .
+#       - name: Build a docker image
+#         run: docker build -t spring-boot-demo .
         
-      - name: Run the container
-        run: docker run -d --rm -p 8080:8080 --name spring-boot spring-boot-demo
+#       - name: Run the container
+#         run: docker run -d --rm -p 8080:8080 --name spring-boot spring-boot-demo
         
-      - name: Show opening ports
-        run: ss -tulnp
+#       - name: Show opening ports
+#         run: ss -tulnp
         
-      - name: Test the running container
-        run: curl http://localhost:8080/rest/demo
+#       - name: Test the running container
+#         run: curl http://localhost:8080/rest/demo
+      - name: Run a test container
+        run: |
+          docker run -it -p 127.0.0.1:80:8888 -p 127.0.0.1:8080:8080 -p 127.0.0.1:9090:9090 -e TZ=Europe/Amsterdam webgoat/goatandwolf:v8.2.2
+      
+      - name: Test the container
+        run: curl http://localhost
