@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build a Docker container and Scan the app with ZAP
+name: Build a Docker container and Scan Baseline with ZAP
 
 # Controls when the workflow will run
 on:
@@ -42,6 +42,6 @@ jobs:
         
       - name: ZAP scan
         run: |
-          docker pull owasp/zap2docker-bare
-          docker run --rm owasp/zap2docker-bare zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://172.18.0.100:8080/rest/demo
+          docker pull owasp/zap2docker-stable
+          docker run --rm owasp/zap2docker-stable zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://172.18.0.100:8080/rest/demo
       
