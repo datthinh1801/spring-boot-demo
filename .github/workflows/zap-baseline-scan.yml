@@ -43,5 +43,5 @@ jobs:
       - name: ZAP scan
         run: |
           docker pull owasp/zap2docker-stable
-          docker run --rm -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-baseline.py -t http://172.18.0.100:8080/rest/demo -r zap_baseline.html
+          docker run --rm -t owasp/zap2docker-stable zap-baseline.py -t http://172.18.0.100:8080/rest/demo
       
