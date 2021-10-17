@@ -50,7 +50,7 @@ jobs:
           ls -la
         
       - name: Perform an active scan
-        run: docker run --rm -v $(pwd)/out:/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -r report.html
+        run: docker run --rm -v $(pwd)/out:/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -r report.html || true
           
       - name: Save report as an artefact
         uses: actions/upload-artifact@v2
