@@ -45,14 +45,14 @@ jobs:
         
       - name: Start ZAP daemon
         run: |
-          # -v $(pwd):/zap/wrk/:rw 
           docker run --rm -p 9999:9999 -d --name zap owasp/zap2docker-stable zap.sh -daemon -port 9999 -host 0.0.0.0 -config api.disablekey=true
+          # -v $(pwd):/zap/wrk/:rw 
           
       - name: Open the target URL for active scan
-        run: docker exec zap zap-cli open-url "http://172.18.0.100:8080/rest/demo"
+        run: docker exec zap zap-cli open-url http://172.18.0.100:8080/rest/demo
         
       - name: Run active scan
-        run: docker exec zap zap-cli active-scan --recursive "http://172.18.0.100:8080/rest/demo"
+        run: docker exec zap zap-cli active-scan --recursive http://172.18.0.100:8080/rest/demo
         
       - name: Report the scan result
         run: docker exec zap zap-cli report -o report -f html
