@@ -1,7 +1,7 @@
-FROM maven:3.8.3-jdk-11 AS build
+FROM maven:3.8.3-jdk-11 
 WORKDIR /build/
 COPY pom.xml ./
 COPY src ./src
-RUN mvn -B -f ./pom.xml dependency:resolve
-RUN pwd
-CMD java -jar ./target/*.jar
+CMD mvn spring-boot:run
+# RUN mvn -B -f ./pom.xml dependency:resolve
+# CMD java -jar ./target/*.jar
