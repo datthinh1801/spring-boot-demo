@@ -1,5 +1,14 @@
-name: Testing Maven using Snyk
-on: push
+name: Snyk Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
 jobs:
   security:
     runs-on: ubuntu-latest
