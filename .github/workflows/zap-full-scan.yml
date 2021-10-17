@@ -44,10 +44,10 @@ jobs:
         run: docker pull owasp/zap2docker-stable
         
       - name: Perform an active scan
-        run: docker run --rm --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo
+        run: docker run --rm -v $(pwd):/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -J report.json
           
-#       - name: Save report as an artefact
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: zap_fullscan_report
-#           path: ./report.html
+      - name: Save report as an artefact
+        uses: actions/upload-artifact@v2
+        with:
+          name: zap_fullscan_report
+          path: report.html
