@@ -8,7 +8,7 @@ on:
       - main
 
 jobs:
-  build:
+  SonarCloud_Scan:
     name: Build
     runs-on: ubuntu-latest
     steps:
