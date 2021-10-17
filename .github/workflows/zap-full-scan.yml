@@ -43,16 +43,16 @@ jobs:
       - name: Pull the ZAP docker image
         run: docker pull owasp/zap2docker-stable
         
-      - name: Echo pwd
+      - name: Create an artefact directory
         run: |
-          echo $(pwd)
-          ls -l $(pwd)
+          mkdir out
+          chmod 777 out
         
       - name: Perform an active scan
-        run: docker run --rm -v $(pwd):/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -J report.json
+        run: docker run --rm -v $(pwd)/out:/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -J report.json
           
       - name: Save report as an artefact
         uses: actions/upload-artifact@v2
         with:
           name: zap_fullscan_report
-          path: report.html
+          path: out/report.json
