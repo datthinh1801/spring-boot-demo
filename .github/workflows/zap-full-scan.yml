@@ -47,12 +47,13 @@ jobs:
         run: |
           mkdir out
           chmod 777 out
+          ls -la
         
       - name: Perform an active scan
-        run: docker run --rm -v $(pwd)/out:/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -J report.json
+        run: docker run --rm -v $(pwd)/out:/zap/wrk/:rw --network zapscan --name zap owasp/zap2docker-stable zap-full-scan.py -t http://172.18.0.100:8080/rest/demo -r report.html
           
       - name: Save report as an artefact
         uses: actions/upload-artifact@v2
         with:
           name: zap_fullscan_report
-          path: out/report.json
+          path: out/report.html
