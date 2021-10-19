@@ -16,4 +16,9 @@ public class DemoRestController {
     public String index() {
         return "This is the home page";
     }
+    
+    @GetMapping("/test")
+    public String index() {
+        return "This is the home page";
+    }
 }
